@@ -1,0 +1,18 @@
+{
+  "name": "flammerougesolo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SirMartin",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^2.0.46",
+    "@types/knockout": "^3.4.59",
+    "@types/lodash": "^4.14.117",
+    "knockout": "^3.4.2",
+    "lodash": "^4.17.11"
+  }
+}
