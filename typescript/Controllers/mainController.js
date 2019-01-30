@@ -124,17 +124,35 @@ var FlammeRougeSolo;
                     return array;
                 };
                 this.playCard = () => {
+                    this.isFirstCardPlayer(true);
                     _.forEach(this.botTeams(), (team) => {
                         team.play();
                     });
                 };
+                this.resetGame = () => {
+                    console.log("RESET!!!");
+                };
                 this.isGameInitialized = ko.observable(false);
                 this.botTeams = ko.observableArray();
+                this.isFirstCardPlayer = ko.observable(false);
                 this.availableMuscleTeams = ko.computed(() => {
                     return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
                 });
                 this.availablePelotonTeams = ko.computed(() => {
                     return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
+                });
+                this.haveTeams = ko.computed(() => {
+                    return this.botTeams().length > 0;
+                });
+                this.noMoreCards = ko.computed(() => {
+                    if (this.botTeams().length > 0) {
+                        if (this.botTeams()[0].isMuscleTeam()) {
+                            return this.botTeams()[0].roleurCards.length > 0;
+                        }
+                        else {
+                            return this.botTeams()[0].bothCards.length > 0;
+                        }
+                    }
                 });
             }
         }

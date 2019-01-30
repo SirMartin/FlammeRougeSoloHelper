@@ -9,6 +9,8 @@ module FlammeRougeSolo.Controllers {
         isGameInitialized: KnockoutObservable<boolean>;
         isFirstCardPlayer: KnockoutObservable<boolean>;
 
+        haveTeams: KnockoutComputed<boolean>;
+
         constructor() {
             this.isGameInitialized = ko.observable(false);
             this.botTeams = ko.observableArray();
@@ -22,11 +24,17 @@ module FlammeRougeSolo.Controllers {
                 return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
             });
 
+            this.haveTeams = ko.computed(() => {
+                return this.botTeams().length > 0;
+            });
+
             this.noMoreCards = ko.computed(() => {
-                if (this.botTeams()[0].isMuscleTeam()) {
-                    return this.botTeams()[0].roleurCards.length > 0;
-                } else {
-                    return this.botTeams()[0].bothCards.length > 0;
+                if (this.botTeams().length > 0) {
+                    if (this.botTeams()[0].isMuscleTeam()) {
+                        return this.botTeams()[0].roleurCards.length > 0;
+                    } else {
+                        return this.botTeams()[0].bothCards.length > 0;
+                    }
                 }
             });
         }
@@ -182,7 +190,7 @@ module FlammeRougeSolo.Controllers {
         }
 
         resetGame = () => {
-
+            console.log("RESET!!!");
         }
     }
 }

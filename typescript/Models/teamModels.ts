@@ -31,7 +31,7 @@ module FlammeRougeSolo.Models {
             this.sprinteurPlayedCard = ko.observable("-");
             this.roleurPlayedCard = ko.observable("-");
             this.bothPlayedCard = ko.observable("-");
-
+            
             this.isMuscleTeam = ko.observable(type === Enums.TeamType.Muscle);
         }
 

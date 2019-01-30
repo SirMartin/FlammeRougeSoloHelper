@@ -5,16 +5,12 @@ var FlammeRougeSolo;
         class Team {
             constructor(name, colour, type) {
                 this.play = () => {
-                    console.log("PLAY CARD");
                     if (this.type() == FlammeRougeSolo.Enums.TeamType.Muscle) {
                         this.sprinteurPlayedCard(this.sprinteurCards().pop().description);
-                        console.log("Card1", this.sprinteurPlayedCard());
                         this.roleurPlayedCard(this.roleurCards().pop().description);
-                        console.log("Card2", this.roleurPlayedCard());
                     }
                     else {
                         this.bothPlayedCard(this.bothCards().pop().description);
-                        console.log("PelotonCard", this.bothPlayedCard());
                     }
                 };
                 this.name = ko.observable(name);
