@@ -1,175 +1,279 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="content/site.css" type="text/css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
-    <!-- <link rel="manifest" href="/site.webmanifest"> -->
-    <!-- <meta name="msapplication-TileColor" content="#da532c"> -->
-    <!-- <meta name="theme-color" content="#ffffff"> -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="scripts/knockout-latest.js"></script>
+	<script src="scripts/lodash.min.js"></script>
+	<script src="typescript/Controllers/mainController.js"></script>
+	<script src="typescript/Enums/colour.js"></script>
+	<script src="typescript/Enums/deckType.js"></script>
+	<script src="typescript/Enums/riderType.js"></script>
+	<script src="typescript/Enums/teamType.js"></script>
+	<script src="typescript/Models/teamModels.js"></script>
+	<script src="typescript/Models/cardModels.js"></script>
+	<script src="typescript/start.js"></script>
+	<script src="scripts/consent.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="scripts/knockout-latest.js"></script>
-    <script src="scripts/lodash.min.js"></script>
-    <script src="typescript/Controllers/mainController.js"></script>
-    <script src="typescript/Enums/colour.js"></script>
-    <script src="typescript/Enums/deckType.js"></script>
-    <script src="typescript/Enums/riderType.js"></script>
-    <script src="typescript/Enums/teamType.js"></script>
-    <script src="typescript/Models/teamModels.js"></script>
-    <script src="typescript/Models/cardModels.js"></script>
-    <script src="typescript/start.js"></script>
-    <script src="scripts/consent.js"></script>
+	<title>Flamme Rouge Solo Player Help</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="content/bootstrap.min.css" />
 
-    <title>Flamme Rouge Solo Player Help</title>
+	<!-- Owl Carousel -->
+	<link type="text/css" rel="stylesheet" href="content/owl.carousel.css" />
+	<link type="text/css" rel="stylesheet" href="content/owl.theme.default.css" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128975439-1"></script> -->
+	<!-- Magnific Popup -->
+	<link type="text/css" rel="stylesheet" href="content/magnific-popup.css" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="content/font-awesome.min.css">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="content/style.css" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 
 <body>
-    <!-- <div id="cookieBanner">
-        <div id="cookieBannerClose"><a href="#">x</a></div>
-        This website uses third party cookies exclusively to collect analytics data.
-        If you continue browsing or close this notice, you will accept their use.
-        <div id="cookieBannerActions">
-            <a class="denyConsent noconsent" href="#">Disallow cookies</a>
-        </div>
-    </div> -->
-    <div class="pregame" data-bind="visible: !isGameInitialized()">
-        <div class="pregame-controls">
-            <button data-bind="click: addMuscleTeam, disable: !availableMuscleTeams()">Add Muscle Team</button>
-            <button data-bind="click: addPelotonTeam, disable: !availablePelotonTeams()">Add Peloton Team</button>
-            <button data-bind="click: startGame">START</button>
-        </div>
-        <div class="pregame-teams" data-bind="foreach: botTeams">
-            <div class="team">
-                Team <span data-bind="text: $index() + 1"></span> |
-                <div class="helmet-icons">
-                    <p>
-                        <a class="helmet red" data-bind="css: { selected: selectedColour}" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                        <a class="helmet blue" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                        <a class="helmet green" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                    </p>
-                    <p>
-                        <a class="helmet pink" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                        <a class="helmet red" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                        <a class="helmet white" href="#">
-                            <!-- ko template: { name: 'helmet-template' } -->
-                            <!-- /ko -->
-                        </a>
-                    </p>
-                </div>
-                &nbsp;|&nbsp;
-                <div>
-                    <span data-bind="text: selectedType"></span>
-                    <span data-bind="visible: isMuscleTeam"><img class="icon" src="content/muscles.svg" alt="Muscle Team"></span>
-                    <span data-bind="visible: !isMuscleTeam()"><img class="icon" src="content/bicycle.svg" alt="Peloton Team"></span>
-                    <a data-bind="click: function () {$parent.removeTeam($data);return false;}" href="#">X</a>
-                </div>
-            </div>
-        </div>
-        <div class="pregame-start">
-            <button data-bind="click: startGame">START</button>
-        </div>
-    </div>
+	<!-- Header -->
+	<header id="home">
+		<!-- Background Image -->
+		<div class="bg-img" style="background-image: url('./img/background1.jpg');">
+			<div class="overlay"></div>
+		</div>
+		<!-- /Background Image -->
 
-    <div class="game" data-bind="visible: isGameInitialized">
-        <div class="game-controls">
-            <button data-bind="click: playCard">Play Next Turn</button>
-        </div>
-        <div class="game-teams">
-            <ul data-bind="foreach: botTeams">
-                <li>
-                    <span data-bind="text: name"></span>&nbsp;-&nbsp;<span data-bind="text: selectedColour"></span>&nbsp;-&nbsp;<span
-                        data-bind="text: selectedType"></span>&nbsp;&nbsp;&nbsp;
-                    <span data-bind="visible: isFirstCardPlayer">
-                        <span data-bind="visible: isMuscleTeam">
-                            Sprinteur: <span data-bind="text: sprinteurPlayedCard"></span> -
-                            Roleur: <span data-bind="text: roleurPlayedCard"></span>
-                        </span>
-                        <span data-bind="visible: !isMuscleTeam()">
-                            Both: <span data-bind="text: bothPlayedCard"></span>
-                        </span>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <div>
-            The game is finished. You can reset and start again.
-            <button data-bind="click: resetGame">Reset Game</button>
-        </div>
-    </div>
+		<!-- Nav -->
+		<div id="title">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<h1 class="page-title">Flamme Rouge Solo Helper</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Nav -->
 
-    <!-- <div class="credits">
-        <h3>More Information</h3>
-        <div>Flamme Rouge and its expansion Peloton are published by <a href="http://www.lautapelit.fi/HOME" target="_blank"
-                title="Lautapelit">Lautapelit</a>.</div>
-        <div>Bike and helmet icons made by <a href="https://www.freepik.com/" target="_blank" title="Freepik">Freepik</a>
-            from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> is licensed
-            by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
-                3.0 BY</a></div>
-        <div>Muscle icon made by <a href="https://www.flaticon.com/authors/those-icons" target="_blank" title="Those Icons">Those
-                Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>
-            is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
-                3.0 BY</a></div>
-    </div> -->
+		<!-- home wrapper -->
+		<div class="home-wrapper">
+			<div class="container">
+				<div class="row">
+					<!-- pre game content -->
+					<div id="pre-game" class="col-sm-10 col-md-10 col-md-offset-1" data-bind="visible: !isGameInitialized()">
+						<div class="home-content" data-bind="foreach: botTeams">
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+									<div class="pregame-teams row">
+										<div class="col-md-3">
+											Team <span data-bind="text: $index() + 1"></span>
+										</div>
+										<div class="col-md-5">
+											<div class="helmet-icons">
+												<p>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Black'}" class="helmet" src="content/helmet-black.png">
+													</a>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Blue'}" class="helmet" src="content/helmet-blue.png">
+													</a>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Green'}" class="helmet" src="content/helmet-green.png">
+													</a>
+												</p>
+												<p>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Pink'}" class="helmet" src="content/helmet-pink.png">
+													</a>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Red'}" class="helmet" src="content/helmet-red.png">
+													</a>
+													<a href="#">
+														<img data-bind="css: { 'helmet-selected': selectedColour() === 'White'}" class="helmet" src="content/helmet-white.png">
+													</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<span data-bind="text: selectedType"></span>
+											<span data-bind="visible: isMuscleTeam">
+												<p><img class="circle-shape icon" src="content/muscles.svg" alt="Muscle Team"></p>
+											</span>
+											<span data-bind="visible: !isMuscleTeam()">
+												<p><img class="circle-shape icon" src="content/bicycle.svg" alt="Peloton Team"></p>
+											</span>
+										</div>
+										<div class="col-md-1">
+											<a data-bind="click: function () {$parent.removeTeam($data);return false;}" href="#">X</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="pregame-controls">
+							<button class="white-btn" data-bind="click: addMuscleTeam, disable: !availableMuscleTeams()">Add Muscle Team</button>
+							<button class="white-btn" data-bind="click: addPelotonTeam, disable: !availablePelotonTeams()">Add Peloton Team</button>
+							<button class="main-btn" data-bind="click: startGame, disable: !haveTeams()">Start</button>
+						</div>
+					</div>
+					<!-- /pre game content -->
 
-    <footer class="mastfoot mt-auto">
-        <div class="inner">
-            <div>
-                Flamme Rouge and its expansion Peloton are published by <a href="http://www.lautapelit.fi/HOME" target="_blank"
-                    title="Lautapelit">Lautapelit</a>.
-            </div>
-            <div>
-                Bike and helmet icons made by <a href="https://www.freepik.com/" target="_blank" title="Freepik">Freepik</a>
-                from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> is
-                licensed
-                by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC
-                    3.0 BY</a>
-            </div>
-            <div>
-                Muscle icon made by <a href="https://www.flaticon.com/authors/those-icons" target="_blank" title="Those Icons">Those
-                    Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>
-                is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-                    target="_blank">CC
-                    3.0 BY</a>
-            </div>
-            <div>
-                Background photo by <a href="https://unsplash.com/photos/6_gP9j4tV8Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Simon
-                    Connellan</a>
-            </div>
-        </div>
-    </footer>
+					<!-- game content -->
+					<div id="game" class="col-md-10 col-md-offset-1" data-bind="if: isGameInitialized">
+						<div class="game-teams" data-bind="foreach: botTeams">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2">
+									<div class="pregame-teams row">
+										<div class="col-md-2">
+											<img data-bind="attr: { src: helmetUrl }" class="helmet"> Team <span data-bind="text: $index() + 1"></span>
+										</div>
+										<div class="col-md-3">
+											<span data-bind="text: selectedType"></span>
+											<span data-bind="visible: isMuscleTeam">
+												<p><img class="circle-shape icon" src="content/muscles.svg" alt="Muscle Team"></p>
+											</span>
+											<span data-bind="visible: !isMuscleTeam()">
+												<p><img class="circle-shape icon" src="content/bicycle.svg" alt="Peloton Team"></p>
+											</span>
+										</div>
+										<div class="col-md-6">
+											<span data-bind="visible: isMuscleTeam">
+												<p>
+													Sprinteur: <span data-bind="text: sprinteurPlayedCard"></span>
+												</p>
+												<p>
+													Roleur: <span data-bind="text: roleurPlayedCard"></span>
+												</p>
+											</span>
+											<span data-bind="visible: !isMuscleTeam()">
+												Both: <span data-bind="text: bothPlayedCard"></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div data-bind="visible: !isGameFinished()" class="game-controls">
+							<button class="main-btn" data-bind="click: playCard">Play Next Turn</button>
+						</div>
+						<div data-bind="visible: isGameFinished">
+							The game is finished. You can reset and start again.
+							<button class="white-btn" data-bind="click: resetGame">Reset Game</button>
+						</div>
+					</div>
+					<!-- /game content -->
+				</div>
+			</div>
+		</div>
+		<!-- /home wrapper -->
 
-    <script type="text/javascript">
-        new FlammeRougeSolo.Start();
-    </script>
+	</header>
+	<!-- /Header -->
+
+
+	<!-- Footer -->
+	<footer id="footer" class="sm-padding bg-dark">
+
+		<!-- Container -->
+		<div class="container">
+
+			<!-- Row -->
+			<div class="row">
+
+				<div class="col-md-12">
+
+					<!-- footer logo -->
+					<div>
+						Flamme Rouge and its expansion Peloton are published by <a href="http://www.lautapelit.fi/HOME" target="_blank"
+						 title="Lautapelit">Lautapelit</a>.
+					</div>
+					<div>
+						Bike and helmet icons made by <a href="https://www.freepik.com/" target="_blank" title="Freepik">Freepik</a>
+						from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> is licensed
+						by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0
+							BY</a>
+					</div>
+					<div>
+						Muscle icon made by <a href="https://www.flaticon.com/authors/those-icons" target="_blank" title="Those Icons">Those
+							Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a> is
+						licensed by
+						<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+					</div>
+					<div>
+						Background photo by <a href="https://unsplash.com/photos/6_gP9j4tV8Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Simon
+							Connellan</a>
+					</div>
+					<!-- /footer logo -->
+
+					<!-- footer follow -->
+					<ul class="footer-follow">
+						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+						<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+						<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+					</ul>
+					<!-- /footer follow -->
+
+					<!-- footer copyright -->
+					<div class="footer-copyright">
+						<p>Copyright © 2017. All Rights Reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+					</div>
+					<!-- /footer copyright -->
+
+				</div>
+
+			</div>
+			<!-- /Row -->
+
+		</div>
+		<!-- /Container -->
+
+	</footer>
+	<!-- /Footer -->
+
+	<!-- Back to top -->
+	<div id="back-to-top"></div>
+	<!-- /Back to top -->
+
+	<!-- Preloader -->
+	<div id="preloader">
+		<div class="preloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<!-- /Preloader -->
+
+	<!-- jQuery Plugins -->
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.magnific-popup.js"></script>
+	<script type="text/javascript" src="scripts/main.js"></script>
+
+	<script type="text/javascript">
+		new FlammeRougeSolo.Start();
+	</script>
+
 </body>
 
 </html>
@@ -288,4 +392,120 @@
     <g>
     </g>
     </svg>
+</script>
+
+<script type="text/html" id="muscles-template">
+    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512.009 512.009" style="enable-background:new 0 0 512.009 512.009;" xml:space="preserve">
+<g>
+	<g>
+		<path d="M441.071,192.046l-3.729-0.042c-52,0-98.785,29.068-122.577,74.587c-14.966-6.75-31.194-10.587-48.09-10.587
+			c-27.913,0-54.163,9.952-74.945,27.285c-0.401-18.324-2.788-36.573-5.117-52.785c-1.995-13.861-3.909-27.31-4.034-38.509
+			l53.93,0.009c8.542,0,16.583-3.333,22.625-9.375l42.667-42.667c12.195-12.195,12.279-31.755,0.638-44.289
+			c4.066-6.094,6.003-13.393,5.258-20.846c-0.948-9.573-6.083-18.135-14.094-23.469l-25.896-17.26
+			c-12.51-8.344-27.083-12.76-42.135-12.76c-31.375,0-60.865,12.219-83.052,34.406C101.654,96.608,69.498,143.4,46.915,194.827
+			c-27.208,61.958-41,107.667-41,135.844c0,16.146-1.396,29.26-4.156,38.99c-5.896,20.781,3.385,42.948,22.563,53.906
+			c76.823,43.896,164.198,67.104,252.677,67.104h15.427c54.844,0,109.031-8.792,161.063-26.135l7.469-2.5
+			c30.531-10.167,51.052-38.635,51.052-70.823V266.765C512.009,226.598,480.186,193.077,441.071,192.046z M490.675,391.213
+			c0,22.99-14.656,43.323-36.479,50.594l-7.469,2.5c-49.833,16.604-101.75,25.031-154.302,25.031h-15.427
+			c-84.771,0-168.49-22.229-242.094-64.292c-10.646-6.083-15.833-18.24-12.625-29.563c3.302-11.615,4.969-26.698,4.969-44.813
+			c0-24.854,13.552-68.854,39.208-127.26c21.5-49,52.167-93.604,91.146-132.583c18.156-18.156,42.292-28.156,67.969-28.156
+			c10.823,0,21.302,3.177,30.302,9.177l25.896,17.26c2.677,1.781,4.385,4.635,4.698,7.823c0.323,3.198-0.802,6.323-3.063,8.594
+			l-34.073,34.073c-3.646,3.646-9.198,4.542-13.802,2.24c-3.479-1.74-5.833-4.938-6.458-8.781s0.594-7.625,3.344-10.375l9.802-9.802
+			c4.167-4.167,4.167-10.917,0-15.083c-4.167-4.167-10.917-4.167-15.083,0l-9.802,9.802c-7.656,7.656-11.063,18.188-9.323,28.885
+			c1.74,10.688,8.292,19.594,17.979,24.438c12.813,6.396,28.281,3.917,38.427-6.24l23.332-23.332
+			c2.883,4.154,2.668,9.832-1.03,13.53l-42.667,42.667c-1.99,1.99-4.74,3.125-7.542,3.125l-49.807-0.008
+			c0.669-1.107,1.311-2.246,2.182-3.117c4.167-4.167,4.167-10.917,0-15.083c-4.167-4.167-10.917-4.167-15.083,0
+			c-17.448,17.448-13.208,46.938-8.302,81.083c2.542,17.729,5.177,36.063,5.177,54.458c0,43.938-33.25,53.292-34.667,53.667
+			c-5.667,1.469-9.104,7.229-7.677,12.917c1.208,4.854,5.552,8.083,10.333,8.083c0.854,0,1.729-0.104,2.594-0.323
+			c12.772-3.191,33.703-15.448,44.224-40.589c0.145-0.194,0.381-0.267,0.516-0.474c17.792-27.521,47.948-43.948,80.677-43.948
+			c25.479,0,49.479,9.875,67.573,27.813c4.188,4.146,10.948,4.125,15.083-0.063c4.146-4.188,4.125-10.938-0.063-15.083
+			c-4.935-4.893-10.345-9.112-15.939-12.999c20.049-38.836,59.803-63.668,104.012-63.668l3.156,0.042
+			c27.667,0.729,50.177,24.677,50.177,53.385V391.213z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</script>
+
+<script type="text/html" id="peloton-template">
+    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 436.842 436.842" style="enable-background:new 0 0 436.842 436.842;" xml:space="preserve">
+<path d="M343.746,154.841c-12.696,0-24.804,2.558-35.842,7.18l-26.394-51.211h36.89c4.002,0,7.258,3.256,7.258,7.258
+	s-3.256,7.258-7.258,7.258h-7.871c-4.143,0-7.5,3.358-7.5,7.5s3.357,7.5,7.5,7.5h7.871c12.273,0,22.258-9.985,22.258-22.258
+	s-9.984-22.258-22.258-22.258h-49.192c-2.615,0-5.042,1.363-6.404,3.596c-1.361,2.233-1.461,5.015-0.263,7.34l13.125,25.467H167.423
+	l-10.92-21.403h17.269c4.143,0,7.5-3.358,7.5-7.5s-3.357-7.5-7.5-7.5h-49.193c-4.143,0-7.5,3.358-7.5,7.5s3.357,7.5,7.5,7.5h15.084
+	l14.576,28.568l-17.132,26.543c-13.113-7.065-28.101-11.08-44.011-11.08C41.763,154.841,0,196.603,0,247.936
+	c0,51.333,41.763,93.096,93.096,93.096c48.808,0,88.961-37.757,92.793-85.596h22.007l-8.549,27.818h-4.922
+	c-4.143,0-7.5,3.358-7.5,7.5s3.357,7.5,7.5,7.5h27c4.143,0,7.5-3.358,7.5-7.5s-3.357-7.5-7.5-7.5h-6.386l9.869-32.114l62.406-96.327
+	l7.269,14.103c-26.357,16.458-43.933,45.723-43.933,79.02c0,51.333,41.763,93.096,93.097,93.096
+	c51.333,0,93.096-41.763,93.096-93.096C436.842,196.603,395.079,154.841,343.746,154.841z M162.121,154.826l43.678,85.61h-19.911
+	c-2.162-26.985-15.882-50.758-36.193-66.359L162.121,154.826z M170.824,240.436h-63.96l34.661-53.699
+	C157.734,199.592,168.745,218.724,170.824,240.436z M93.096,326.032C50.033,326.032,15,290.999,15,247.936
+	c0-43.062,35.033-78.096,78.096-78.096c12.914,0,25.095,3.17,35.837,8.743l-42.139,65.285c-1.489,2.307-1.598,5.244-0.284,7.655
+	c1.313,2.411,3.84,3.912,6.586,3.912h77.728C167.036,294.992,133.628,326.032,93.096,326.032z M218.819,232.949l-43.743-85.737
+	h99.289L218.819,232.949z M343.746,326.032c-43.063,0-78.097-35.034-78.097-78.096c0-27.498,14.298-51.704,35.838-65.623
+	l35.592,69.059c1.332,2.583,3.954,4.065,6.673,4.065c1.157,0,2.331-0.269,3.43-0.835c3.683-1.897,5.129-6.42,3.231-10.103
+	l-35.603-69.079c8.956-3.586,18.714-5.581,28.936-5.581c43.063,0,78.096,35.034,78.096,78.096
+	C421.842,290.999,386.809,326.032,343.746,326.032z"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
 </script>

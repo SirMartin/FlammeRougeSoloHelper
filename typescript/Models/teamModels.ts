@@ -7,6 +7,8 @@ module FlammeRougeSolo.Models {
         type: KnockoutObservable<Enums.TeamType>;
         selectedType: KnockoutObservable<string>;
 
+        helmetUrl: KnockoutComputed<string>;
+
         sprinteurCards: KnockoutObservableArray<Card>;
         roleurCards: KnockoutObservableArray<Card>;
         bothCards: KnockoutObservableArray<Card>;
@@ -33,14 +35,22 @@ module FlammeRougeSolo.Models {
             this.bothPlayedCard = ko.observable("-");
             
             this.isMuscleTeam = ko.observable(type === Enums.TeamType.Muscle);
+
+            this.helmetUrl = ko.computed(() => {
+                return `content/helmet-${this.selectedColour().toLowerCase()}.png`;
+            });
         }
 
-        play = () => {
+        play = () : boolean => {
             if (this.type() == Enums.TeamType.Muscle) {
                 this.sprinteurPlayedCard(this.sprinteurCards().pop().description);
                 this.roleurPlayedCard(this.roleurCards().pop().description);
+
+                return this.roleurCards().length === 0;
             } else {
                 this.bothPlayedCard(this.bothCards().pop().description);
+
+                return this.bothCards().length === 0;
             }
         }
     }

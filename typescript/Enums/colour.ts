@@ -1,11 +1,11 @@
 module FlammeRougeSolo.Enums {
 
     export enum Colour {
-        Green = 0,
+        Black = 0,
         Blue = 1,
-        Black = 2,
-        Red = 3,
-        Pink = 4,
+        Green = 2,        
+        Pink = 3,
+        Red = 4,
         White = 5
     }
 }

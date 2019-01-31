@@ -8,9 +8,11 @@ var FlammeRougeSolo;
                     if (this.type() == FlammeRougeSolo.Enums.TeamType.Muscle) {
                         this.sprinteurPlayedCard(this.sprinteurCards().pop().description);
                         this.roleurPlayedCard(this.roleurCards().pop().description);
+                        return this.roleurCards().length === 0;
                     }
                     else {
                         this.bothPlayedCard(this.bothCards().pop().description);
+                        return this.bothCards().length === 0;
                     }
                 };
                 this.name = ko.observable(name);
@@ -25,6 +27,9 @@ var FlammeRougeSolo;
                 this.roleurPlayedCard = ko.observable("-");
                 this.bothPlayedCard = ko.observable("-");
                 this.isMuscleTeam = ko.observable(type === FlammeRougeSolo.Enums.TeamType.Muscle);
+                this.helmetUrl = ko.computed(() => {
+                    return `content/helmet-${this.selectedColour().toLowerCase()}.png`;
+                });
             }
         }
         Models.Team = Team;

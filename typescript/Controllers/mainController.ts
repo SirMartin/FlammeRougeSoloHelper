@@ -8,6 +8,7 @@ module FlammeRougeSolo.Controllers {
 
         isGameInitialized: KnockoutObservable<boolean>;
         isFirstCardPlayer: KnockoutObservable<boolean>;
+        isGameFinished: KnockoutObservable<boolean>;
 
         haveTeams: KnockoutComputed<boolean>;
 
@@ -15,6 +16,7 @@ module FlammeRougeSolo.Controllers {
             this.isGameInitialized = ko.observable(false);
             this.botTeams = ko.observableArray();
             this.isFirstCardPlayer = ko.observable(false);
+            this.isGameFinished = ko.observable(false);
 
             this.availableMuscleTeams = ko.computed(() => {
                 return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
@@ -185,12 +187,18 @@ module FlammeRougeSolo.Controllers {
             this.isFirstCardPlayer(true);
 
             _.forEach(this.botTeams(), (team) => {
-                team.play();
+                if (team.play()){
+                    // If returns TRUE. Mark like the game is finished.
+                    this.isGameFinished(true);
+                }
             });
         }
 
         resetGame = () => {
-            console.log("RESET!!!");
+            this.botTeams([]);
+            this.isGameInitialized(false);
+            this.isFirstCardPlayer(false);
+            this.isGameFinished(false);
         }
     }
 }
