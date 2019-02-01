@@ -583,21 +583,24 @@ header {
 }
 
 #home .home-wrapper {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
     text-align: center;
+}
+
+.game-content {
+    margin-top: 20px;
 }
 
 .home-content h1 {
   text-transform: uppercase;
 }
+
+h3 {
+    text-transform: uppercase;
+    color: #868F9B;
+}
+
 .home-content button {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .header-wrapper h2 {

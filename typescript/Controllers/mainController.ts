@@ -4,19 +4,23 @@ module FlammeRougeSolo.Controllers {
         availablePelotonTeams: KnockoutComputed<boolean>;
         noMoreCards: KnockoutComputed<boolean>;
 
+        turnNumber: KnockoutObservable<number>;
+
         botTeams: KnockoutObservableArray<Models.Team>;
 
         isGameInitialized: KnockoutObservable<boolean>;
-        isFirstCardPlayer: KnockoutObservable<boolean>;
+        isFirstCardPlayed: KnockoutObservable<boolean>;
         isGameFinished: KnockoutObservable<boolean>;
 
         haveTeams: KnockoutComputed<boolean>;
 
+
         constructor() {
             this.isGameInitialized = ko.observable(false);
             this.botTeams = ko.observableArray();
-            this.isFirstCardPlayer = ko.observable(false);
+            this.isFirstCardPlayed = ko.observable(false);
             this.isGameFinished = ko.observable(false);
+            this.turnNumber = ko.observable(0);
 
             this.availableMuscleTeams = ko.computed(() => {
                 return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
@@ -184,7 +188,9 @@ module FlammeRougeSolo.Controllers {
         }
 
         playCard = () => {
-            this.isFirstCardPlayer(true);
+            this.isFirstCardPlayed(true);
+
+            this.turnNumber(this.turnNumber() + 1);
 
             _.forEach(this.botTeams(), (team) => {
                 if (team.play()){
@@ -197,8 +203,9 @@ module FlammeRougeSolo.Controllers {
         resetGame = () => {
             this.botTeams([]);
             this.isGameInitialized(false);
-            this.isFirstCardPlayer(false);
+            this.isFirstCardPlayed(false);
             this.isGameFinished(false);
+            this.turnNumber = ko.observable(0);
         }
     }
 }

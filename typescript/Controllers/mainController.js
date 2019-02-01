@@ -124,7 +124,8 @@ var FlammeRougeSolo;
                     return array;
                 };
                 this.playCard = () => {
-                    this.isFirstCardPlayer(true);
+                    this.isFirstCardPlayed(true);
+                    this.turnNumber(this.turnNumber() + 1);
                     _.forEach(this.botTeams(), (team) => {
                         if (team.play()) {
                             // If returns TRUE. Mark like the game is finished.
@@ -135,13 +136,15 @@ var FlammeRougeSolo;
                 this.resetGame = () => {
                     this.botTeams([]);
                     this.isGameInitialized(false);
-                    this.isFirstCardPlayer(false);
+                    this.isFirstCardPlayed(false);
                     this.isGameFinished(false);
+                    this.turnNumber = ko.observable(0);
                 };
                 this.isGameInitialized = ko.observable(false);
                 this.botTeams = ko.observableArray();
-                this.isFirstCardPlayer = ko.observable(false);
+                this.isFirstCardPlayed = ko.observable(false);
                 this.isGameFinished = ko.observable(false);
+                this.turnNumber = ko.observable(0);
                 this.availableMuscleTeams = ko.computed(() => {
                     return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
                 });
