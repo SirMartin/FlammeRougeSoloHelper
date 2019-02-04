@@ -142,7 +142,7 @@ module FlammeRougeSolo.Controllers {
                 case Enums.DeckType.Peloton:
                     // Rouleur deck
                     deck = deck.concat(this.generateCard("3", "Move 3 both", "3", 3));
-                    deck = deck = deck.concat(this.generateCard("4", "Move 4 both", "4", 3));
+                    deck = deck.concat(this.generateCard("4", "Move 4 both", "4", 3));
                     deck = deck.concat(this.generateCard("5", "Move 5 both", "5", 3));
                     deck = deck.concat(this.generateCard("6", "Move 6 both", "6", 3));
                     deck = deck.concat(this.generateCard("7", "Move 7 both", "7", 3));
