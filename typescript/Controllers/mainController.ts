@@ -111,7 +111,7 @@ module FlammeRougeSolo.Controllers {
 
         generateCard = (value: string, description: string, name: string, amount: number): Models.Card[] => {
             var cards = [];
-            for (var i = 0; i < amount - 1; i++) {
+            for (var i = 0; i < amount; i++) {
                 cards.push(new Models.Card(name, description, value));
             }
 
@@ -129,7 +129,7 @@ module FlammeRougeSolo.Controllers {
                     deck = deck.concat(this.generateCard("5", "Move 5 the sprinteur", "5", 3));
                     deck = deck.concat(this.generateCard("9", "Move 9 the sprinteur", "9", 3));
                     // Muscle card
-                    deck = deck.concat(this.generateCard("2/9", "Move 5 the sprinteur", "Muscle", 1));
+                    deck = deck.concat(this.generateCard("5", "Move 5 the sprinteur", "Muscle", 1));
                     break;
                 case Enums.DeckType.MuscleRouleur:
                     // Rouleur deck
