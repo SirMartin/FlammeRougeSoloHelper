@@ -67,31 +67,31 @@ var FlammeRougeSolo;
                     switch (deckType) {
                         case FlammeRougeSolo.Enums.DeckType.MuscleSprinteur:
                             // Sprinteur deck
-                            deck = deck.concat(this.generateCard("2", "Move 2 the sprinteur", "2", 3));
-                            deck = deck.concat(this.generateCard("3", "Move 3 the sprinteur", "3", 3));
-                            deck = deck.concat(this.generateCard("4", "Move 4 the sprinteur", "4", 3));
-                            deck = deck.concat(this.generateCard("5", "Move 5 the sprinteur", "5", 3));
-                            deck = deck.concat(this.generateCard("9", "Move 9 the sprinteur", "9", 3));
+                            deck = deck.concat(this.generateCard("2", "2", "2", 3));
+                            deck = deck.concat(this.generateCard("3", "3", "3", 3));
+                            deck = deck.concat(this.generateCard("4", "4", "4", 3));
+                            deck = deck.concat(this.generateCard("5", "5", "5", 3));
+                            deck = deck.concat(this.generateCard("9", "9", "9", 3));
                             // Muscle card
-                            deck = deck.concat(this.generateCard("5", "Move 5 the sprinteur", "Muscle", 1));
+                            deck = deck.concat(this.generateCard("5", "5", "Muscle", 1));
                             break;
                         case FlammeRougeSolo.Enums.DeckType.MuscleRouleur:
                             // Rouleur deck
-                            deck = deck.concat(this.generateCard("3", "Move 3 the rouleur", "3", 3));
-                            deck = deck.concat(this.generateCard("4", "Move 4 the rouleur", "4", 3));
-                            deck = deck.concat(this.generateCard("5", "Move 5 the rouleur", "5", 3));
-                            deck = deck.concat(this.generateCard("6", "Move 6 the rouleur", "6", 3));
-                            deck = deck.concat(this.generateCard("7", "Move 7 the rouleur", "7", 3));
+                            deck = deck.concat(this.generateCard("3", "3", "3", 3));
+                            deck = deck.concat(this.generateCard("4", "4", "4", 3));
+                            deck = deck.concat(this.generateCard("5", "5", "5", 3));
+                            deck = deck.concat(this.generateCard("6", "6", "6", 3));
+                            deck = deck.concat(this.generateCard("7", "7", "7", 3));
                             break;
                         case FlammeRougeSolo.Enums.DeckType.Peloton:
                             // Rouleur deck
-                            deck = deck.concat(this.generateCard("3", "Move 3 both", "3", 3));
-                            deck = deck.concat(this.generateCard("4", "Move 4 both", "4", 3));
-                            deck = deck.concat(this.generateCard("5", "Move 5 both", "5", 3));
-                            deck = deck.concat(this.generateCard("6", "Move 6 both", "6", 3));
-                            deck = deck.concat(this.generateCard("7", "Move 7 both", "7", 3));
+                            deck = deck.concat(this.generateCard("3", "3", "3", 3));
+                            deck = deck.concat(this.generateCard("4", "4", "4", 3));
+                            deck = deck.concat(this.generateCard("5", "5", "5", 3));
+                            deck = deck.concat(this.generateCard("6", "6", "6", 3));
+                            deck = deck.concat(this.generateCard("7", "7", "7", 3));
                             // Attack cards
-                            deck = deck.concat(this.generateCard("2/9", "Move the frontmost 2 and 9 the backmost", "Attack!", 2));
+                            deck = deck.concat(this.generateCard("2/9", "Frontmost 2 - Backmost 9", "Attack!", 2));
                             break;
                     }
                     return this.shuffle(deck);

@@ -159,7 +159,7 @@
 					<div id="game" class="col-xs-12 col-md-10 col-md-offset-1" data-bind="if: isGameInitialized">
 						<div class="row">
 							<div class="col-xs-6 col-xs-offset-3">
-								<h3 data-bind="visible: isFirstCardPlayed">Turn&nbsp;<span data-bind="text: turnNumber"></span></h3>
+								<h3 data-bind="visible: isFirstCardPlayed">Round&nbsp;<span data-bind="text: turnNumber"></span></h3>
 								<h3 data-bind="visible: !isFirstCardPlayed()">Start the game!</h3>
 							</div>
 						</div>
@@ -180,16 +180,16 @@
 											</span>
 										</div>
 										<div class="col-xs-7 col-md-6">
-											<span data-bind="visible: isMuscleTeam">
+											<span class="card-text" data-bind="visible: isMuscleTeam">
 												<p>
-													Sprinteur: <span data-bind="text: sprinteurPlayedCard"></span>
+													Sprinteur: <span class="card-value-text" data-bind="text: sprinteurPlayedCard"></span>
 												</p>
 												<p>
-													Roleur: <span data-bind="text: roleurPlayedCard"></span>
+													Roleur: <span class="card-value-text" data-bind="text: roleurPlayedCard"></span>
 												</p>
 											</span>
-											<span data-bind="visible: !isMuscleTeam()">
-												Both: <span data-bind="text: bothPlayedCard"></span>
+											<span class="card-text" data-bind="visible: !isMuscleTeam()">
+												Both: <span class="card-value-text" data-bind="text: bothPlayedCard"></span>
 											</span>
 										</div>
 									</div>
