@@ -154,11 +154,11 @@ var FlammeRougeSolo;
                 this.turnNumber = ko.observable(0);
                 this.availableMuscleTeams = ko.computed(() => {
                     //return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
-                    return true;
+                    return this.botTeams().length < 6;
                 });
                 this.availablePelotonTeams = ko.computed(() => {
                     //return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
-                    return true;
+                    return this.botTeams().length < 6;
                 });
                 this.haveTeams = ko.computed(() => {
                     return this.botTeams().length > 0;
