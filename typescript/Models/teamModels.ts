@@ -3,7 +3,7 @@ module FlammeRougeSolo.Models {
     export class Team {
         name: KnockoutObservable<string>;
         colour: KnockoutObservable<Enums.Colour>;
-        selectedColour: KnockoutObservable<string>;
+        selectedColour: KnockoutComputed<string>;
         type: KnockoutObservable<Enums.TeamType>;
         selectedType: KnockoutObservable<string>;
 
@@ -22,7 +22,6 @@ module FlammeRougeSolo.Models {
         constructor(name: string, colour: Enums.Colour, type: Enums.TeamType) {
             this.name = ko.observable(name);
             this.colour = ko.observable(colour);
-            this.selectedColour = ko.observable(Enums.Colour[colour]);
             this.type = ko.observable(type);
             this.selectedType = ko.observable(Enums.TeamType[type]);
 
@@ -35,6 +34,10 @@ module FlammeRougeSolo.Models {
             this.bothPlayedCard = ko.observable("-");
             
             this.isMuscleTeam = ko.observable(type === Enums.TeamType.Muscle);
+
+            this.selectedColour = ko.computed(() => {
+                return Enums.Colour[this.colour()];
+            });
 
             this.helmetUrl = ko.computed(() => {
                 return `content/helmet-${this.selectedColour().toLowerCase()}.png`;

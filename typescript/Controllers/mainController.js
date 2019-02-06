@@ -39,6 +39,9 @@ var FlammeRougeSolo;
                     const freeColours = this.getAvailableColours();
                     return freeColours[0];
                 };
+                this.selectColour = (col, team) => {
+                    team.colour(FlammeRougeSolo.Enums.Colour[col]);
+                };
                 this.getSelectColours = (myColour) => {
                     let colours = [];
                     const freeColours = this.getAvailableColours(myColour);
@@ -137,6 +140,11 @@ var FlammeRougeSolo;
                     this.botTeams([]);
                     this.isGameInitialized(false);
                     this.isFirstCardPlayed(false);
+                    this.isGameFinished(false);
+                    this.turnNumber = ko.observable(0);
+                };
+                this.replayGame = () => {
+                    this.isGameInitialized(false);
                     this.isGameFinished(false);
                     this.turnNumber = ko.observable(0);
                 };

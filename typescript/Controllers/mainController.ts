@@ -89,6 +89,10 @@ module FlammeRougeSolo.Controllers {
             return freeColours[0];
         }
 
+        selectColour = (col: string, team: Models.Team) => {
+            team.colour(Enums.Colour[col]);
+        }
+
         getSelectColours = (myColour) => {
             let colours = [];
             const freeColours = this.getAvailableColours(myColour);
@@ -204,6 +208,12 @@ module FlammeRougeSolo.Controllers {
             this.botTeams([]);
             this.isGameInitialized(false);
             this.isFirstCardPlayed(false);
+            this.isGameFinished(false);
+            this.turnNumber = ko.observable(0);
+        }
+
+        replayGame = () => {
+            this.isGameInitialized(false);
             this.isGameFinished(false);
             this.turnNumber = ko.observable(0);
         }

@@ -113,24 +113,24 @@
 										<div class="col-xs-5">
 											<div class="helmet-icons">
 												<p>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('Black', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Black'}" class="helmet" src="content/helmet-black.png">
 													</a>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('Blue', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Blue'}" class="helmet" src="content/helmet-blue.png">
 													</a>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('Green', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Green'}" class="helmet" src="content/helmet-green.png">
 													</a>
 												</p>
 												<p>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('Pink', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Pink'}" class="helmet" src="content/helmet-pink.png">
 													</a>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('Red', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'Red'}" class="helmet" src="content/helmet-red.png">
 													</a>
-													<a href="#">
+													<a href="#" data-bind="click: function () {$parent.selectColour('White', $data);return false;}">
 														<img data-bind="css: { 'helmet-selected': selectedColour() === 'White'}" class="helmet" src="content/helmet-white.png">
 													</a>
 												</p>
@@ -201,8 +201,9 @@
 							<button class="btn btn-lg btn-warning" data-bind="click: resetGame">Reset Game</button>
 						</div>
 						<div data-bind="visible: isGameFinished">
-							The game is finished. You can reset and start again.
-							<button class="btn btn-lg btn-success" data-bind="click: resetGame">Reset Game</button>
+							The game is finished. You can reset or replay.
+							<button class="btn btn-lg btn-success" data-bind="click: replayGame">Replay Game</button>
+							<button class="btn btn-lg btn-warning" data-bind="click: resetGame">Reset Game</button>
 						</div>
 					</div>
 					<!-- /game content -->

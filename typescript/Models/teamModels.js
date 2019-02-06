@@ -17,7 +17,6 @@ var FlammeRougeSolo;
                 };
                 this.name = ko.observable(name);
                 this.colour = ko.observable(colour);
-                this.selectedColour = ko.observable(FlammeRougeSolo.Enums.Colour[colour]);
                 this.type = ko.observable(type);
                 this.selectedType = ko.observable(FlammeRougeSolo.Enums.TeamType[type]);
                 this.sprinteurCards = ko.observableArray([]);
@@ -27,6 +26,9 @@ var FlammeRougeSolo;
                 this.roleurPlayedCard = ko.observable("-");
                 this.bothPlayedCard = ko.observable("-");
                 this.isMuscleTeam = ko.observable(type === FlammeRougeSolo.Enums.TeamType.Muscle);
+                this.selectedColour = ko.computed(() => {
+                    return FlammeRougeSolo.Enums.Colour[this.colour()];
+                });
                 this.helmetUrl = ko.computed(() => {
                     return `content/helmet-${this.selectedColour().toLowerCase()}.png`;
                 });
