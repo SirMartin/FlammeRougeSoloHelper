@@ -23,11 +23,13 @@ module FlammeRougeSolo.Controllers {
             this.turnNumber = ko.observable(0);
 
             this.availableMuscleTeams = ko.computed(() => {
-                return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
+                //return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
+                return true;
             });
 
             this.availablePelotonTeams = ko.computed(() => {
-                return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
+                //return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
+                return true;
             });
 
             this.haveTeams = ko.computed(() => {
@@ -213,9 +215,8 @@ module FlammeRougeSolo.Controllers {
         }
 
         replayGame = () => {
-            this.isGameInitialized(false);
             this.isGameFinished(false);
-            this.turnNumber = ko.observable(0);
+            this.startGame();
         }
     }
 }
