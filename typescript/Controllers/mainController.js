@@ -40,7 +40,17 @@ var FlammeRougeSolo;
                     return freeColours[0];
                 };
                 this.selectColour = (col, team) => {
-                    team.colour(FlammeRougeSolo.Enums.Colour[col]);
+                    const colour = FlammeRougeSolo.Enums.Colour[col];
+                    // Check for the team that has the new selected colour if exists.
+                    var filteredTeams = _.filter(this.botTeams(), (x) => {
+                        return x.colour() === colour;
+                    });
+                    if (filteredTeams.length > 0) {
+                        var oldTeam = filteredTeams[0];
+                        oldTeam.colour(team.colour());
+                    }
+                    // Assign the colour to the new selected.
+                    team.colour(colour);
                 };
                 this.getSelectColours = (myColour) => {
                     let colours = [];
