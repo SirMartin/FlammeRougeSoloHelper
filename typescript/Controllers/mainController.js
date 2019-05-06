@@ -7,12 +7,12 @@ var FlammeRougeSolo;
                 this.addMuscleTeam = () => {
                     // Add new muscle team.
                     const newColour = this.getUnusedColour();
-                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Muscle));
+                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Muscle, this.useExhaustionCards()));
                 };
                 this.addPelotonTeam = () => {
                     // Add new peloton team.
                     const newColour = this.getUnusedColour();
-                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Peloton));
+                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Peloton, this.useExhaustionCards()));
                 };
                 this.removeTeam = (team) => {
                     // Remove the latest one.
@@ -161,13 +161,13 @@ var FlammeRougeSolo;
                 this.botTeams = ko.observableArray();
                 this.isFirstCardPlayed = ko.observable(false);
                 this.isGameFinished = ko.observable(false);
+                this.showCardLogs = ko.observable(false);
+                this.useExhaustionCards = ko.observable(false);
                 this.turnNumber = ko.observable(0);
                 this.availableMuscleTeams = ko.computed(() => {
-                    //return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
                     return this.botTeams().length < 6;
                 });
                 this.availablePelotonTeams = ko.computed(() => {
-                    //return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
                     return this.botTeams().length < 6;
                 });
                 this.haveTeams = ko.computed(() => {

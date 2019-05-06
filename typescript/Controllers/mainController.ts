@@ -12,6 +12,9 @@ module FlammeRougeSolo.Controllers {
         isFirstCardPlayed: KnockoutObservable<boolean>;
         isGameFinished: KnockoutObservable<boolean>;
 
+        showCardLogs: KnockoutObservable<boolean>;
+        useExhaustionCards: KnockoutObservable<boolean>;
+
         haveTeams: KnockoutComputed<boolean>;
 
 
@@ -20,15 +23,15 @@ module FlammeRougeSolo.Controllers {
             this.botTeams = ko.observableArray();
             this.isFirstCardPlayed = ko.observable(false);
             this.isGameFinished = ko.observable(false);
+            this.showCardLogs = ko.observable(false);
+            this.useExhaustionCards = ko.observable(false);
             this.turnNumber = ko.observable(0);
 
             this.availableMuscleTeams = ko.computed(() => {
-                //return this.botTeams().filter(x => x.isMuscleTeam()).length < 4;
                 return this.botTeams().length < 6;
             });
 
             this.availablePelotonTeams = ko.computed(() => {
-                //return this.botTeams().filter(x => !x.isMuscleTeam()).length === 0;
                 return this.botTeams().length < 6;
             });
 
@@ -50,13 +53,13 @@ module FlammeRougeSolo.Controllers {
         addMuscleTeam = () => {
             // Add new muscle team.
             const newColour: Enums.Colour = this.getUnusedColour();
-            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Muscle));
+            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Muscle, this.useExhaustionCards()));
         }
 
         addPelotonTeam = () => {
             // Add new peloton team.
             const newColour: Enums.Colour = this.getUnusedColour();
-            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Peloton));
+            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Peloton, this.useExhaustionCards()));
         }
 
         removeTeam = (team: Models.Team) => {

@@ -17,9 +17,15 @@ module FlammeRougeSolo.Models {
         roleurPlayedCard: KnockoutObservable<string>;
         bothPlayedCard: KnockoutObservable<string>;
 
+        sprinteurCardLog: KnockoutObservable<string>;
+        roleurCardLog: KnockoutObservable<string>;
+        bothCardLog: KnockoutObservable<string>;
+
         isMuscleTeam: KnockoutObservable<boolean>;
 
-        constructor(name: string, colour: Enums.Colour, type: Enums.TeamType) {
+        useExhaustionCards: KnockoutObservable<boolean>;
+
+        constructor(name: string, colour: Enums.Colour, type: Enums.TeamType, useExhaustionCards: boolean) {
             this.name = ko.observable(name);
             this.colour = ko.observable(colour);
             this.type = ko.observable(type);
@@ -32,8 +38,14 @@ module FlammeRougeSolo.Models {
             this.sprinteurPlayedCard = ko.observable("-");
             this.roleurPlayedCard = ko.observable("-");
             this.bothPlayedCard = ko.observable("-");
-            
+
+            this.sprinteurCardLog = ko.observable("");
+            this.roleurCardLog = ko.observable("");
+            this.bothCardLog = ko.observable("");
+
             this.isMuscleTeam = ko.observable(type === Enums.TeamType.Muscle);
+
+            this.useExhaustionCards = ko.observable(useExhaustionCards);
 
             this.selectedColour = ko.computed(() => {
                 return Enums.Colour[this.colour()];
@@ -44,17 +56,58 @@ module FlammeRougeSolo.Models {
             });
         }
 
-        play = () : boolean => {
+        play = (): boolean => {
             if (this.type() == Enums.TeamType.Muscle) {
-                this.sprinteurPlayedCard(this.sprinteurCards().pop().description);
-                this.roleurPlayedCard(this.roleurCards().pop().description);
+                var sprinteurCard = null;
+                if (this.useExhaustionCards() && this.roleurCards().length === 0){
+                    // Return exhaustion card.
+                    sprinteurCard = new Models.Card("Exhaustion", "2", "2");
+                }else{
+                    sprinteurCard = this.sprinteurCards().pop();
+                }
+                this.sprinteurPlayedCard(sprinteurCard.description);
+                this.sprinteurCardLog(this.addLogCard(this.sprinteurCardLog(), sprinteurCard.name));
+                
+                var roleurCard = null;
+                if (this.useExhaustionCards() && this.roleurCards().length === 0){
+                    // Return exhaustion card.
+                    roleurCard = new Models.Card("Exhaustion", "2", "2");
+                }else{
+                    roleurCard = this.roleurCards().pop();
+                }
+                this.roleurPlayedCard(roleurCard.description);
+                this.roleurCardLog(this.addLogCard(this.roleurCardLog(), roleurCard.name));
+
+                if (this.useExhaustionCards())
+                    return false;
 
                 return this.roleurCards().length === 0;
             } else {
-                this.bothPlayedCard(this.bothCards().pop().description);
+                var bothCard = null;
+                if (this.useExhaustionCards() && this.bothCards().length === 0){
+                    // Return exhaustion card.
+                    bothCard = new Models.Card("Exhaustion", "2", "2");
+                }else{
+                    bothCard = this.bothCards().pop();
+                }
+                this.bothPlayedCard(bothCard.description);
+                this.bothCardLog(this.addLogCard(this.bothCardLog(), bothCard.name));
+
+                if (this.useExhaustionCards())
+                    return false;
 
                 return this.bothCards().length === 0;
             }
+        }
+
+        addLogCard = (log: string, cardName: string): string => {
+            if (log === "") {
+                log = cardName;
+            } else {
+                log = log + ", " + cardName;
+            }
+
+            return log;
         }
     }
 }

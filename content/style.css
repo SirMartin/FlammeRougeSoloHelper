@@ -576,3 +576,10 @@ h3 {
     font-size: large;
     font-weight: bold;
 }
+
+.log-card-text {
+    color: #aaa;
+    font-size: small;
+    font-weight: bold;
+    text-align: left;
+}
