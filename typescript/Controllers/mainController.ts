@@ -10,10 +10,8 @@ module FlammeRougeSolo.Controllers {
 
         isGameInitialized: KnockoutObservable<boolean>;
         isFirstCardPlayed: KnockoutObservable<boolean>;
-        isGameFinished: KnockoutObservable<boolean>;
 
         showCardLogs: KnockoutObservable<boolean>;
-        useExhaustionCards: KnockoutObservable<boolean>;
 
         haveTeams: KnockoutComputed<boolean>;
 
@@ -22,9 +20,7 @@ module FlammeRougeSolo.Controllers {
             this.isGameInitialized = ko.observable(false);
             this.botTeams = ko.observableArray();
             this.isFirstCardPlayed = ko.observable(false);
-            this.isGameFinished = ko.observable(false);
             this.showCardLogs = ko.observable(false);
-            this.useExhaustionCards = ko.observable(false);
             this.turnNumber = ko.observable(0);
 
             this.availableMuscleTeams = ko.computed(() => {
@@ -53,13 +49,13 @@ module FlammeRougeSolo.Controllers {
         addMuscleTeam = () => {
             // Add new muscle team.
             const newColour: Enums.Colour = this.getUnusedColour();
-            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Muscle, this.useExhaustionCards()));
+            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Muscle));
         }
 
         addPelotonTeam = () => {
             // Add new peloton team.
             const newColour: Enums.Colour = this.getUnusedColour();
-            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Peloton, this.useExhaustionCards()));
+            this.botTeams.push(new Models.Team(Enums.Colour[newColour].toString(), newColour, Enums.TeamType.Peloton));
         }
 
         removeTeam = (team: Models.Team) => {
@@ -98,11 +94,11 @@ module FlammeRougeSolo.Controllers {
             const colour = Enums.Colour[col];
 
             // Check for the team that has the new selected colour if exists.
-            var filteredTeams = _.filter(this.botTeams(), (x:Models.Team) => {
+            var filteredTeams = _.filter(this.botTeams(), (x: Models.Team) => {
                 return x.colour() === colour;
             });
 
-            if (filteredTeams.length > 0){
+            if (filteredTeams.length > 0) {
                 var oldTeam = filteredTeams[0];
                 oldTeam.colour(team.colour());
             }
@@ -215,10 +211,7 @@ module FlammeRougeSolo.Controllers {
             this.turnNumber(this.turnNumber() + 1);
 
             _.forEach(this.botTeams(), (team) => {
-                if (team.play()){
-                    // If returns TRUE. Mark like the game is finished.
-                    this.isGameFinished(true);
-                }
+                team.play();
             });
         }
 
@@ -226,12 +219,10 @@ module FlammeRougeSolo.Controllers {
             this.botTeams([]);
             this.isGameInitialized(false);
             this.isFirstCardPlayed(false);
-            this.isGameFinished(false);
             this.turnNumber = ko.observable(0);
         }
 
         replayGame = () => {
-            this.isGameFinished(false);
             this.startGame();
         }
     }

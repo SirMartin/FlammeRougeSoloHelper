@@ -3,11 +3,11 @@ var FlammeRougeSolo;
     var Models;
     (function (Models) {
         class Team {
-            constructor(name, colour, type, useExhaustionCards) {
+            constructor(name, colour, type) {
                 this.play = () => {
                     if (this.type() == FlammeRougeSolo.Enums.TeamType.Muscle) {
                         var sprinteurCard = null;
-                        if (this.useExhaustionCards() && this.roleurCards().length === 0) {
+                        if (this.sprinteurCards().length === 0) {
                             // Return exhaustion card.
                             sprinteurCard = new Models.Card("Exhaustion", "2", "2");
                         }
@@ -17,7 +17,7 @@ var FlammeRougeSolo;
                         this.sprinteurPlayedCard(sprinteurCard.description);
                         this.sprinteurCardLog(this.addLogCard(this.sprinteurCardLog(), sprinteurCard.name));
                         var roleurCard = null;
-                        if (this.useExhaustionCards() && this.roleurCards().length === 0) {
+                        if (this.roleurCards().length === 0) {
                             // Return exhaustion card.
                             roleurCard = new Models.Card("Exhaustion", "2", "2");
                         }
@@ -26,13 +26,10 @@ var FlammeRougeSolo;
                         }
                         this.roleurPlayedCard(roleurCard.description);
                         this.roleurCardLog(this.addLogCard(this.roleurCardLog(), roleurCard.name));
-                        if (this.useExhaustionCards())
-                            return false;
-                        return this.roleurCards().length === 0;
                     }
                     else {
                         var bothCard = null;
-                        if (this.useExhaustionCards() && this.bothCards().length === 0) {
+                        if (this.bothCards().length === 0) {
                             // Return exhaustion card.
                             bothCard = new Models.Card("Exhaustion", "2", "2");
                         }
@@ -41,9 +38,6 @@ var FlammeRougeSolo;
                         }
                         this.bothPlayedCard(bothCard.description);
                         this.bothCardLog(this.addLogCard(this.bothCardLog(), bothCard.name));
-                        if (this.useExhaustionCards())
-                            return false;
-                        return this.bothCards().length === 0;
                     }
                 };
                 this.addLogCard = (log, cardName) => {
@@ -69,7 +63,6 @@ var FlammeRougeSolo;
                 this.roleurCardLog = ko.observable("");
                 this.bothCardLog = ko.observable("");
                 this.isMuscleTeam = ko.observable(type === FlammeRougeSolo.Enums.TeamType.Muscle);
-                this.useExhaustionCards = ko.observable(useExhaustionCards);
                 this.selectedColour = ko.computed(() => {
                     return FlammeRougeSolo.Enums.Colour[this.colour()];
                 });

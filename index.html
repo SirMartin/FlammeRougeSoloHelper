@@ -101,11 +101,6 @@
 							<button class="btn btn-lg btn-success"
 								data-bind="click: startGame, disable: !haveTeams()">Start</button>
 						</div>
-						<div>
-							<label>Options: <input type="checkbox" data-bind="checked: useExhaustionCards">Use Exhaustion Cards
-							With
-							Empty Deck</input></label>
-						</div>
 						<div class="pregame-controls hidden-sm hidden-md hidden-lg">
 							<button class="btn btn-default btn-sm"
 								data-bind="click: addMuscleTeam, disable: !availableMuscleTeams()">+
@@ -250,13 +245,8 @@
 								</div>
 							</div>
 						</div>
-						<div data-bind="visible: !isGameFinished()" class="game-controls">
+						<div class="game-controls">
 							<button class="btn btn-primary btn-lg" data-bind="click: playCard">Play Next Turn</button>
-							<button class="btn btn-lg btn-warning" data-bind="click: resetGame">Reset Game</button>
-						</div>
-						<div data-bind="visible: isGameFinished">
-							The game is finished. You can reset or replay.
-							<button class="btn btn-lg btn-success" data-bind="click: replayGame">Replay Game</button>
 							<button class="btn btn-lg btn-warning" data-bind="click: resetGame">Reset Game</button>
 						</div>
 					</div>

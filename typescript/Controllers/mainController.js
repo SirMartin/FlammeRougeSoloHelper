@@ -7,12 +7,12 @@ var FlammeRougeSolo;
                 this.addMuscleTeam = () => {
                     // Add new muscle team.
                     const newColour = this.getUnusedColour();
-                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Muscle, this.useExhaustionCards()));
+                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Muscle));
                 };
                 this.addPelotonTeam = () => {
                     // Add new peloton team.
                     const newColour = this.getUnusedColour();
-                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Peloton, this.useExhaustionCards()));
+                    this.botTeams.push(new FlammeRougeSolo.Models.Team(FlammeRougeSolo.Enums.Colour[newColour].toString(), newColour, FlammeRougeSolo.Enums.TeamType.Peloton));
                 };
                 this.removeTeam = (team) => {
                     // Remove the latest one.
@@ -140,29 +140,22 @@ var FlammeRougeSolo;
                     this.isFirstCardPlayed(true);
                     this.turnNumber(this.turnNumber() + 1);
                     _.forEach(this.botTeams(), (team) => {
-                        if (team.play()) {
-                            // If returns TRUE. Mark like the game is finished.
-                            this.isGameFinished(true);
-                        }
+                        team.play();
                     });
                 };
                 this.resetGame = () => {
                     this.botTeams([]);
                     this.isGameInitialized(false);
                     this.isFirstCardPlayed(false);
-                    this.isGameFinished(false);
                     this.turnNumber = ko.observable(0);
                 };
                 this.replayGame = () => {
-                    this.isGameFinished(false);
                     this.startGame();
                 };
                 this.isGameInitialized = ko.observable(false);
                 this.botTeams = ko.observableArray();
                 this.isFirstCardPlayed = ko.observable(false);
-                this.isGameFinished = ko.observable(false);
                 this.showCardLogs = ko.observable(false);
-                this.useExhaustionCards = ko.observable(false);
                 this.turnNumber = ko.observable(0);
                 this.availableMuscleTeams = ko.computed(() => {
                     return this.botTeams().length < 6;
