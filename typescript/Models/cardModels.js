@@ -9,6 +9,9 @@ var FlammeRougeSolo;
                 this.description = description;
             }
         }
+        Card.exhaustionCard = () => {
+            return new Models.Card("Exhaustion", "2", "2");
+        };
         Models.Card = Card;
     })(Models = FlammeRougeSolo.Models || (FlammeRougeSolo.Models = {}));
 })(FlammeRougeSolo || (FlammeRougeSolo = {}));

@@ -12,5 +12,9 @@ module FlammeRougeSolo.Models {
             this.name = name;
             this.description = description;
         }
+
+        public static exhaustionCard = () : Card => {
+            return new Models.Card("Exhaustion", "2", "2");
+        }
     }
 }

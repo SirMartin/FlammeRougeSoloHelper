@@ -9,7 +9,7 @@ var FlammeRougeSolo;
                         var sprinteurCard = null;
                         if (this.sprinteurCards().length === 0) {
                             // Return exhaustion card.
-                            sprinteurCard = new Models.Card("Exhaustion", "2", "2");
+                            sprinteurCard = Models.Card.exhaustionCard();
                         }
                         else {
                             sprinteurCard = this.sprinteurCards().pop();
@@ -19,7 +19,7 @@ var FlammeRougeSolo;
                         var roleurCard = null;
                         if (this.roleurCards().length === 0) {
                             // Return exhaustion card.
-                            roleurCard = new Models.Card("Exhaustion", "2", "2");
+                            roleurCard = Models.Card.exhaustionCard();
                         }
                         else {
                             roleurCard = this.roleurCards().pop();
@@ -31,7 +31,7 @@ var FlammeRougeSolo;
                         var bothCard = null;
                         if (this.bothCards().length === 0) {
                             // Return exhaustion card.
-                            bothCard = new Models.Card("Exhaustion", "2", "2");
+                            bothCard = Models.Card.exhaustionCard();
                         }
                         else {
                             bothCard = this.bothCards().pop();
