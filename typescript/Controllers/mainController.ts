@@ -223,6 +223,14 @@ module FlammeRougeSolo.Controllers {
         }
 
         replayGame = () => {
+            this.isGameInitialized(false);
+            this.isFirstCardPlayed(false);
+            this.turnNumber = ko.observable(0);
+            
+            this.botTeams().forEach(bot => {
+                bot.reset();
+            });
+
             this.startGame();
         }
     }

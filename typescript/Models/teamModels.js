@@ -49,6 +49,14 @@ var FlammeRougeSolo;
                     }
                     return log;
                 };
+                this.reset = () => {
+                    this.sprinteurPlayedCard("-");
+                    this.roleurPlayedCard("-");
+                    this.bothPlayedCard("-");
+                    this.sprinteurCardLog("");
+                    this.roleurCardLog("");
+                    this.bothCardLog("");
+                };
                 this.name = ko.observable(name);
                 this.colour = ko.observable(colour);
                 this.type = ko.observable(type);

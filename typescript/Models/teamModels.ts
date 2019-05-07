@@ -57,30 +57,30 @@ module FlammeRougeSolo.Models {
         play = () => {
             if (this.type() == Enums.TeamType.Muscle) {
                 var sprinteurCard = null;
-                if (this.sprinteurCards().length === 0){
+                if (this.sprinteurCards().length === 0) {
                     // Return exhaustion card.
                     sprinteurCard = Models.Card.exhaustionCard();
-                }else{
+                } else {
                     sprinteurCard = this.sprinteurCards().pop();
                 }
                 this.sprinteurPlayedCard(sprinteurCard.description);
                 this.sprinteurCardLog(this.addLogCard(this.sprinteurCardLog(), sprinteurCard.name));
-                
+
                 var roleurCard = null;
-                if (this.roleurCards().length === 0){
+                if (this.roleurCards().length === 0) {
                     // Return exhaustion card.
                     roleurCard = Models.Card.exhaustionCard();
-                }else{
+                } else {
                     roleurCard = this.roleurCards().pop();
                 }
                 this.roleurPlayedCard(roleurCard.description);
                 this.roleurCardLog(this.addLogCard(this.roleurCardLog(), roleurCard.name));
             } else {
                 var bothCard = null;
-                if (this.bothCards().length === 0){
+                if (this.bothCards().length === 0) {
                     // Return exhaustion card.
                     bothCard = Models.Card.exhaustionCard();
-                }else{
+                } else {
                     bothCard = this.bothCards().pop();
                 }
                 this.bothPlayedCard(bothCard.description);
@@ -96,6 +96,16 @@ module FlammeRougeSolo.Models {
             }
 
             return log;
+        }
+
+        reset = () => {
+            this.sprinteurPlayedCard("-");
+            this.roleurPlayedCard("-");
+            this.bothPlayedCard("-");
+
+            this.sprinteurCardLog("");
+            this.roleurCardLog("");
+            this.bothCardLog("");
         }
     }
 }
