@@ -221,7 +221,8 @@ header {
 }
 
 #home {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 
 #home .home-wrapper {
@@ -481,6 +482,10 @@ h3 {
 .pregame-teams {
     height: 40px;
     vertical-align: middle;
+}
+
+.game-controls {
+    margin-bottom: 10px;
 }
 
 .circle-shape {
